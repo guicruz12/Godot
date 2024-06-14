@@ -1,16 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4v6w0hbny8tk"]
+[gd_scene load_steps=5 format=3 uid="uid://b4v6w0hbny8tk"]
 
 [ext_resource type="PackedScene" uid="uid://b78du2u1labuy" path="res://prefabs/player.tscn" id="1_eo1y0"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_smx0e"]
+[ext_resource type="PackedScene" uid="uid://ck24itsct1tgy" path="res://prefabs/enemy.tscn" id="2_8twkm"]
 
 [sub_resource type="Curve2D" id="Curve2D_s45hn"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 480, 0, 0, 0, 0, 0, 480, 720, 0, 0, 0, 0, 0, 720)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 480, 0, 0, 0, 0, 0, 480, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, -1, 7, 0, 0, 0, 0, 0, 0)
 }
-point_count = 4
+point_count = 6
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_smx0e")
+bug_scene = ExtResource("2_8twkm")
 
 [node name="player" parent="." instance=ExtResource("1_eo1y0")]
 position = Vector2(234, 450)
@@ -33,3 +35,6 @@ curve = SubResource("Curve2D_s45hn")
 [node name="BugPathLocation" type="PathFollow2D" parent="BugPath"]
 
 [connection signal="hit" from="player" to="." method="game_over"]
+[connection signal="timeout" from="BugTimer" to="." method="_on_bug_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer2" to="." method="_on_score_timer_2_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
